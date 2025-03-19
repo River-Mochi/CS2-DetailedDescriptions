@@ -1,13 +1,14 @@
-﻿using Colossal.Localization;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Colossal.Localization;
+using Game;
 using Game.Prefabs;
 using Game.SceneFlow;
-using Game;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.Collections;
 using Unity.Entities;
+using ZoneLotSizeDisplay;
 
-namespace ZoneLotSizeDisplay
+namespace BetterDescriptions.Systems
 {
     public partial class ZoneLotSizeSystem : GameSystemBase
     {

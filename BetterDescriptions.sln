@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoneLotSizeDisplay", "ZoneLotSizeDisplay.csproj", "{92483C66-F4CE-4D7B-8337-522D450BEC9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDescriptions", "BetterDescriptions.csproj", "{92483C66-F4CE-4D7B-8337-522D450BEC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
