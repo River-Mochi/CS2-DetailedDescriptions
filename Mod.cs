@@ -1,14 +1,14 @@
-﻿using BetterDescriptions.Systems;
+﻿using DetailedDescriptions.Systems;
 using Colossal.Logging;
 using Game;
 using Game.Modding;
 using Game.SceneFlow;
 
-namespace ZoneLotSizeDisplay
+namespace DetailedDescriptions
 {
     public class Mod : IMod
     {
-        public static ILog log = LogManager.GetLogger($"{nameof(ZoneLotSizeDisplay)}.{nameof(Mod)}")
+        public static ILog log = LogManager.GetLogger($"{nameof(DetailedDescriptions)}.{nameof(Mod)}")
             .SetShowsErrorsInUI(false);
 
         public void OnLoad(UpdateSystem updateSystem)

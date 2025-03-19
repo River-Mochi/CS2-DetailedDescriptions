@@ -1,4 +1,4 @@
-﻿namespace ZoneLotSizeDisplay;
+﻿namespace DetailedDescriptions;
 
 public static class LocalizationProvider
 {

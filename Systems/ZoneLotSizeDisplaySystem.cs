@@ -6,9 +6,8 @@ using Game.Prefabs;
 using Game.SceneFlow;
 using Unity.Collections;
 using Unity.Entities;
-using ZoneLotSizeDisplay;
 
-namespace BetterDescriptions.Systems
+namespace DetailedDescriptions.Systems
 {
     public partial class ZoneLotSizeSystem : GameSystemBase
     {
