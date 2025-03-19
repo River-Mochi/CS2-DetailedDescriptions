@@ -13,19 +13,18 @@ namespace ZoneLotSizeDisplay
     {
         private PrefabSystem prefabSystem;
         private EntityQuery spawnableBuildings;
-        private LocalizationManager localizationManager;
+        private LocalizationManager _localizationManager;
         public static Dictionary<string, List<(int, int)>> zoneLots = new();
         protected override void OnCreate()
         {
             base.OnCreate();
-            localizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
             prefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
             spawnableBuildings = GetEntityQuery(new EntityQueryDesc()
             {
                 All = [ComponentType.ReadWrite<SpawnableBuildingData>()]
             });
-            localizationManager = GameManager.instance.localizationManager;
+            _localizationManager = GameManager.instance.localizationManager;
 
             var allSpawnableBuildings = spawnableBuildings.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in allSpawnableBuildings)
@@ -44,6 +43,7 @@ namespace ZoneLotSizeDisplay
             }
 
             AddTextToDescriptions();
+            _localizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
         }
 
         private void AddTextToDescriptions()
@@ -60,21 +60,23 @@ namespace ZoneLotSizeDisplay
                     .Distinct()
                     .ToList();
 
-                string LotSize = sortedLots.Count > 1
-                    ? string.Join(", ", sortedLots.Take(sortedLots.Count - 1)) + " and " + sortedLots.Last()
+                string lotSize = sortedLots.Count > 1
+                    ? string.Join(", ", sortedLots.Take(sortedLots.Count - 1)) + " " + LocalizationProvider.GetLocalizedAnd(_localizationManager.activeLocaleId) + " " + sortedLots.Last()
                     : sortedLots.FirstOrDefault() ?? "";
 
-                var old = localizationManager.activeDictionary.entries.FirstOrDefault(c => c.Key == string.Format("Assets.DESCRIPTION[{0}]", zoneName));
-                if (old.Value == "") continue;
-                string ZoneDescNew = $"{old.Value}\r\nLot Sizes: {LotSize}";
-                localizationManager.activeDictionary.Add(string.Format("Assets.DESCRIPTION[{0}]", zoneName), ZoneDescNew);
+                var old = _localizationManager.activeDictionary.entries.FirstOrDefault(c => c.Key == string.Format("Assets.DESCRIPTION[{0}]", zoneName));
+                if (string.IsNullOrEmpty(old.Value)) continue;
+                string localizedText = LocalizationProvider.GetLocalizedText(_localizationManager.activeLocaleId).Replace("%data%", lotSize);
+                string zoneDescNew = $"{old.Value}\r\n{localizedText}";
+                if (old.Value.Contains(localizedText)) continue;
+                _localizationManager.activeDictionary.Add(string.Format("Assets.DESCRIPTION[{0}]", zoneName), zoneDescNew);
 
             }
         }
 
         public void OnActiveDictionaryChanged()
         {
-            
+            AddTextToDescriptions();
         }
 
         protected override void OnUpdate()
