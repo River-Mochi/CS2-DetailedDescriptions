@@ -9,7 +9,7 @@ using Unity.Entities;
 
 namespace DetailedDescriptions.Systems
 {
-    public partial class ZoneLotSizeSystem : GameSystemBase
+    public partial class ZoneLotSizeSystem : AssetDescriptionDisplaySystem
     {
         private PrefabSystem _prefabSystem;
         private EntityQuery _spawnableBuildings;
@@ -24,7 +24,6 @@ namespace DetailedDescriptions.Systems
             {
                 All = [ComponentType.ReadWrite<SpawnableBuildingData>()]
             });
-            _localizationManager = GameManager.instance.localizationManager;
 
             var allSpawnableBuildings = _spawnableBuildings.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in allSpawnableBuildings)
@@ -42,12 +41,11 @@ namespace DetailedDescriptions.Systems
                 }
             }
 
-            AddTextToDescriptions();
-            _localizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
+            AddTextToAllDescriptions();
             Mod.log.Info("ZoneLotSizeSystem initialized");
         }
-
-        private void AddTextToDescriptions()
+        
+        protected override void AddTextToAllDescriptions()
         {
             foreach (var item in ZoneLots)
             {
@@ -65,22 +63,11 @@ namespace DetailedDescriptions.Systems
                     ? string.Join(", ", sortedLots.Take(sortedLots.Count - 1)) + " " + LocalizationProvider.GetLocalizedAnd(_localizationManager.activeLocaleId) + " " + sortedLots.Last()
                     : sortedLots.FirstOrDefault() ?? "";
                 
-                if (_localizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{zoneName}]", out var entry))
-                {
-                    if (string.IsNullOrEmpty(entry)) continue;
-                    string localizedText = LocalizationProvider.GetLocalizedText(_localizationManager.activeLocaleId)
-                        .Replace("%data%", lotSize); // Make sure text isn't appended multiple times
-                    string zoneDescNew = $"{entry}\r\n{localizedText}";
-                    if (entry.Contains(localizedText)) continue;
-                    _localizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{zoneName}]", zoneDescNew);
-                }
+                string localizedText = LocalizationProvider.GetLocalizedText(_localizationManager.activeLocaleId).Replace("%data%", lotSize);
+                
+                AddTextToDescription(zoneName, localizedText);
             }
-        }
-
-        public void OnActiveDictionaryChanged()
-        {
-            AddTextToDescriptions();
-        }
+        } 
 
         protected override void OnUpdate()
         {

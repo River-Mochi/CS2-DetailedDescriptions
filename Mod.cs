@@ -19,7 +19,7 @@ namespace DetailedDescriptions
                 log.Info($"Current mod asset at {asset.path}");
             
             updateSystem.UpdateAt<ZoneLotSizeSystem>(SystemUpdatePhase.MainLoop);
-            updateSystem.UpdateAt<BuildingLotSizeDisplaySystem>(SystemUpdatePhase.MainLoop);
+            updateSystem.UpdateAt<BuildingLotSizeSystem>(SystemUpdatePhase.MainLoop);
         }
 
         public void OnDispose()
