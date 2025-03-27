@@ -20,6 +20,7 @@ namespace DetailedDescriptions.Systems
         protected override void OnCreate()
         {
             base.OnCreate();
+            _entityManager = World.EntityManager;
             _prefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
             _buildingsQuery = GetEntityQuery(new EntityQueryDesc()
@@ -31,16 +32,10 @@ namespace DetailedDescriptions.Systems
             var buildings = _buildingsQuery.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in buildings)
             {
-                _prefabSystem.TryGetPrefab(entity, out PrefabBase bldgPrefab);
-                BuildingPrefab buildingPrefab = (BuildingPrefab)bldgPrefab;
-                
-                if (_entityManager.TryGetComponent(entity, out PrefabRef prefabRef))
+                if (_entityManager.TryGetComponent(entity, out BuildingData buildingData))
                 {
-                    if (_entityManager.TryGetComponent(prefabRef.m_Prefab, out BuildingData buildingData))
-                    {
-                        string prefabName = _prefabSystem.GetPrefabName(entity);
-                        _buildingLots.Add(prefabName, (buildingData.m_LotSize.x, buildingData.m_LotSize.y));
-                    }
+                    string prefabName = _prefabSystem.GetPrefabName(entity);
+                    _buildingLots.Add(prefabName, (buildingData.m_LotSize.x, buildingData.m_LotSize.y));
                 }
             }
 
@@ -53,13 +48,13 @@ namespace DetailedDescriptions.Systems
         {
             foreach (var item in _buildingLots)
             {
-                if (_localizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{item}]", out var entry))
+                if (_localizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{item.Key}]", out var entry))
                 {
                     if (string.IsNullOrEmpty(entry)) continue;
                     var lotText = "Lot Size: " + item.Value.Item1 + "x" + item.Value.Item2;
                     string newDescription = $"{entry}\r\n{lotText}";
                     if (entry.Contains(lotText)) continue;
-                        _localizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{item}]", newDescription);
+                        _localizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{item.Key}]", newDescription);
                 }
             }
         }
