@@ -21,7 +21,7 @@ namespace DetailedDescriptions.Systems
 
             _spawnableBuildings = GetEntityQuery(new EntityQueryDesc()
             {
-                All = [ComponentType.ReadWrite<SpawnableBuildingData>()]
+                All = new [] { ComponentType.ReadWrite<SpawnableBuildingData>() }
             });
 
             var allSpawnableBuildings = _spawnableBuildings.ToEntityArray(Allocator.Temp);

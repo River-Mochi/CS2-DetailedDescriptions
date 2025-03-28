@@ -21,7 +21,7 @@ namespace DetailedDescriptions.Systems
             base.OnCreate();
             _buildingsQuery = GetEntityQuery(new EntityQueryDesc()
             {
-                All = [ComponentType.ReadWrite<BuildingData>()]
+                All = new [] { ComponentType.ReadWrite<BuildingData>() }
             });
 
             var buildings = _buildingsQuery.ToEntityArray(Allocator.Temp);
