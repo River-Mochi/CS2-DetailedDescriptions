@@ -4,50 +4,51 @@ using Game.Prefabs;
 using Game.SceneFlow;
 using Unity.Entities;
 
-namespace DetailedDescriptions.Systems;
-
-public partial class AssetDescriptionDisplaySystem : GameSystemBase
+namespace DetailedDescriptions.Systems
 {
-    protected PrefabSystem PrefabSystem;
-    protected LocalizationManager LocalizationManager;
-    protected override void OnCreate()
+    public partial class AssetDescriptionDisplaySystem : GameSystemBase
     {
-        base.OnCreate();
-        PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
-        LocalizationManager = GameManager.instance.localizationManager;
-        LocalizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
-        Mod.OnSettingsChanged += OnSettingsChanged;
-    }
-
-    protected virtual void AddTextToAllDescriptions()
-    {
-        
-    }
-
-    public void AddTextToDescription(string prefabName, string text)
-    {
-        if (LocalizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{prefabName}]", out var entry))
+        protected PrefabSystem PrefabSystem;
+        protected LocalizationManager LocalizationManager;
+        protected override void OnCreate()
         {
-            if (string.IsNullOrEmpty(entry)) return;
-            string newDescription = $"{entry}\r\n{text}";
-            if (entry.Contains(text)) return;
-            LocalizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{prefabName}]", newDescription);
+            base.OnCreate();
+            PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
+            LocalizationManager = GameManager.instance.localizationManager;
+            LocalizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
+            Mod.OnSettingsChanged += OnSettingsChanged;
         }
-    }
-    
-    private void OnSettingsChanged()
-    {
-        AddTextToAllDescriptions();
-    }
 
-    private void OnActiveDictionaryChanged()
-    {
-        AddTextToAllDescriptions();
-    }
+        protected virtual void AddTextToAllDescriptions()
+        {
+        
+        }
+
+        public void AddTextToDescription(string prefabName, string text)
+        {
+            if (LocalizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{prefabName}]", out var entry))
+            {
+                if (string.IsNullOrEmpty(entry)) return;
+                string newDescription = $"{entry}\r\n{text}";
+                if (entry.Contains(text)) return;
+                LocalizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{prefabName}]", newDescription);
+            }
+        }
+    
+        private void OnSettingsChanged()
+        {
+            AddTextToAllDescriptions();
+        }
+
+        private void OnActiveDictionaryChanged()
+        {
+            AddTextToAllDescriptions();
+        }
         
         
-    protected override void OnUpdate()
-    {
+        protected override void OnUpdate()
+        {
         
+        }
     }
 }
