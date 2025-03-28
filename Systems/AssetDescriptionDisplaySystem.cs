@@ -16,6 +16,7 @@ public partial class AssetDescriptionDisplaySystem : GameSystemBase
         PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
         LocalizationManager = GameManager.instance.localizationManager;
         LocalizationManager.onActiveDictionaryChanged += OnActiveDictionaryChanged;
+        Mod.OnSettingsChanged += OnSettingsChanged;
     }
 
     protected virtual void AddTextToAllDescriptions()
@@ -32,6 +33,11 @@ public partial class AssetDescriptionDisplaySystem : GameSystemBase
             if (entry.Contains(text)) return;
             LocalizationManager.activeDictionary.Add($"Assets.DESCRIPTION[{prefabName}]", newDescription);
         }
+    }
+    
+    private void OnSettingsChanged()
+    {
+        AddTextToAllDescriptions();
     }
 
     private void OnActiveDictionaryChanged()

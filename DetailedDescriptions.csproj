@@ -10,6 +10,7 @@
         <LangVersion>latest</LangVersion>
         <AssemblyVersion>1.0.1</AssemblyVersion>
         <FileVersion>1.0.1</FileVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <!--Imports must be after PropertyGroup block-->
@@ -64,6 +65,13 @@
     <ItemGroup>
         <None Include="$(ModPropsFile)" Link="Properties\Mod.props"/>
         <None Include="$(ModTargetsFile)" Link="Properties\Mod.targets"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Locale.json" />
+        <EmbeddedResource Include="Locale\*.json" />
+        <None Remove="Locale.json" />
+        <None Remove="Locale\*.json" />
     </ItemGroup>
 
 </Project>

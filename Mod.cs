@@ -1,8 +1,11 @@
-﻿using Colossal.IO.AssetDatabase;
+﻿using System;
+using Colossal.IO.AssetDatabase;
 using DetailedDescriptions.Systems;
 using Colossal.Logging;
+using DetailedDescriptions.Helpers;
 using Game;
 using Game.Modding;
+using Game.Prefabs;
 using Game.SceneFlow;
 
 namespace DetailedDescriptions
@@ -13,6 +16,7 @@ namespace DetailedDescriptions
             .SetShowsErrorsInUI(false);
         
         private Setting m_Setting;
+        public static event Action? OnSettingsChanged;
 
         public void OnLoad(UpdateSystem updateSystem)
         {
@@ -23,6 +27,10 @@ namespace DetailedDescriptions
             
             m_Setting = new Setting(this);
             m_Setting.RegisterInOptionsUI();
+            foreach (var item in new LocaleHelper("DetailedDescriptions.Locale.json").GetAvailableLanguages())
+            {
+                GameManager.instance.localizationManager.AddSource(item.LocaleId, item);
+            }
             
             AssetDatabase.global.LoadSettings(nameof(DetailedDescriptions), m_Setting, new Setting(this));
             Setting.Instance = m_Setting;
@@ -34,6 +42,17 @@ namespace DetailedDescriptions
         public void OnDispose()
         {
             log.Info(nameof(OnDispose));
+        }
+
+        public static void ApplySettingsChanges()
+        {
+            
+            OnSettingsChanged?.Invoke();
+        }
+
+        public static void ReloadActiveLocale()
+        {
+            GameManager.instance.localizationManager.ReloadActiveLocale();
         }
     }
 }

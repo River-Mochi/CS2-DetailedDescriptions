@@ -2,6 +2,7 @@
 using System.Linq;
 using Colossal.Entities;
 using Colossal.Localization;
+using DetailedDescriptions.Helpers;
 using Game;
 using Game.Prefabs;
 using Game.SceneFlow;
@@ -39,6 +40,7 @@ namespace DetailedDescriptions.Systems
 
         protected override void AddTextToAllDescriptions()
         {
+            if (!Setting.Instance.ShowBuildingLotSizes) return;
             foreach (var item in BuildingLots)
             {
                 int width = item.Value.Item1;
@@ -46,23 +48,10 @@ namespace DetailedDescriptions.Systems
                 var lotText = $"Lot Size: {width}x{depth}";
                 if (Setting.Instance.ShowLotSizeUnits)
                 {
-                    if (IsMetric())
-                    {
-                        lotText += $" ({width*8}m x {depth * 8}m)";
-                    }
-                    else
-                    {
-                        // One unit is 8 meters, convert to feet
-                        lotText += $" ({width*8/0.3048f}ft x {depth*8/0.3048f}ft)";
-                    }
+                    lotText += $" ({UnitHelper.FormatUnit(width)} x {UnitHelper.FormatUnit(depth)})";
                 }
                 AddTextToDescription(item.Key, lotText);
             }
         } 
-        
-        private static bool IsMetric()
-        {
-            return GameManager.instance?.settings?.userInterface?.unitSystem is null or InterfaceSettings.UnitSystem.Metric;
-        }
     }
 }

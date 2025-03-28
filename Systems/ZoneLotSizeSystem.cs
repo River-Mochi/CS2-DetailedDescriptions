@@ -46,6 +46,7 @@ namespace DetailedDescriptions.Systems
         
         protected override void AddTextToAllDescriptions()
         {
+            if (!Setting.Instance.ShowZoneLotSizes) return;
             foreach (var item in ZoneLots)
             {
                 string zoneName = item.Key.Replace("ZonePrefab:","");

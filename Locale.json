@@ -1,0 +1,14 @@
+{
+    "Options.SECTION[DetailedDescriptions.DetailedDescriptions.Mod]": "Detailed Descriptions",
+    "Options.TAB[DetailedDescriptions.DetailedDescriptions.Mod.Settings]": "Settings",
+    "Options.GROUP[DetailedDescriptions.DetailedDescriptions.Mod.GeneralSettings]": "General Settings",
+    "Options.GROUP[DetailedDescriptions.DetailedDescriptions.Mod.DescriptionTypes]": "Description Types",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowLotSizeUnits]": "Show Lot Size Units",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowLotSizeUnits]": "Show meter or feet additionally to the unit lot size",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ApplyChanges]": "Apply Changes",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ApplyChanges]": "Apply changes and reload descriptions",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Show Building Lot Sizes",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Shows Lot Sizes for Buildings",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Show Zone Lot Sizes",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Shows all Lot Sizes that a Zone has buildings for"
+}
