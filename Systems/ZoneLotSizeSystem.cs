@@ -13,7 +13,6 @@ namespace DetailedDescriptions.Systems
     {
         private PrefabSystem _prefabSystem;
         private EntityQuery _spawnableBuildings;
-        private LocalizationManager _localizationManager;
         private static readonly Dictionary<string, List<(int, int)>> ZoneLots = new();
         protected override void OnCreate()
         {
@@ -60,10 +59,10 @@ namespace DetailedDescriptions.Systems
                     .ToList();
 
                 string lotSize = sortedLots.Count > 1
-                    ? string.Join(", ", sortedLots.Take(sortedLots.Count - 1)) + " " + LocalizationProvider.GetLocalizedAnd(_localizationManager.activeLocaleId) + " " + sortedLots.Last()
+                    ? string.Join(", ", sortedLots.Take(sortedLots.Count - 1)) + " " + LocalizationProvider.GetLocalizedAnd(LocalizationManager.activeLocaleId) + " " + sortedLots.Last()
                     : sortedLots.FirstOrDefault() ?? "";
                 
-                string localizedText = LocalizationProvider.GetLocalizedText(_localizationManager.activeLocaleId).Replace("%data%", lotSize);
+                string localizedText = LocalizationProvider.GetLocalizedText(LocalizationManager.activeLocaleId).Replace("%data%", lotSize);
                 
                 AddTextToDescription(zoneName, localizedText);
             }
