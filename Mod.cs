@@ -37,6 +37,7 @@ namespace DetailedDescriptions
             
             updateSystem.UpdateAt<ZoneLotSizeSystem>(SystemUpdatePhase.MainLoop);
             updateSystem.UpdateAt<BuildingLotSizeSystem>(SystemUpdatePhase.MainLoop);
+            updateSystem.UpdateAt<BuildingWorkplacesSystem>(SystemUpdatePhase.MainLoop);
         }
 
         public void OnDispose()
