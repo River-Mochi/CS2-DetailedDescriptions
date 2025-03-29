@@ -10,5 +10,9 @@
     "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Show Building Lot Sizes",
     "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Shows Lot Sizes for Buildings",
     "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Show Zone Lot Sizes",
-    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Shows all Lot Sizes that a Zone has buildings for"
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Shows all Lot Sizes that a Zone has buildings for",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingWorkplaces]": "Show Building Workplaces",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingWorkplaces]": "Shows amount of workers for service buildings", 
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowRoadSpeedLimit]": "Show Speed Limit",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowRoadSpeedLimit]": "Shows speed limit for roads"
 }

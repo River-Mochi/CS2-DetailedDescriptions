@@ -48,7 +48,7 @@ namespace DetailedDescriptions.Systems
                 var lotText = $"Lot Size: {width}x{depth}";
                 if (Setting.Instance.ShowLotSizeUnits)
                 {
-                    lotText += $" ({UnitHelper.FormatUnit(width)} x {UnitHelper.FormatUnit(depth)})";
+                    lotText += $" ({UnitHelper.FormatLength(width)} x {UnitHelper.FormatLength(depth)})";
                 }
                 AddTextToDescription(item.Key, lotText);
             }

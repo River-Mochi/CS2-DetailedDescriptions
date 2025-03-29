@@ -41,12 +41,13 @@ namespace DetailedDescriptions.Systems
 
         protected override void AddTextToAllDescriptions()
         {
-            if (!Setting.Instance.ShowBuildingLotSizes) return;
+            if (!Setting.Instance.ShowBuildingWorkplaces) return;
             foreach (var item in BuildingLots)
             {
                 var workplaceData = item.Value;
                 var workplaceText = $"Workplaces: {workplaceData.m_MaxWorkers}";
-                AddTextToDescription(item.Key, workplaceText);
+                if (workplaceData.m_MaxWorkers > 0)
+                    AddTextToDescription(item.Key, workplaceText);
             }
         } 
     }

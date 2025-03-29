@@ -48,6 +48,10 @@ namespace DetailedDescriptions
         public bool ShowBuildingLotSizes { get; set; } = true;
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowZoneLotSizes { get; set; } = true;
+        [SettingsUISection(kMainSection, kDescriptionsGroup)]
+        public bool ShowBuildingWorkplaces { get; set; } = true;
+        [SettingsUISection(kMainSection, kDescriptionsGroup)]
+        public bool ShowRoadSpeedLimit { get; set; } = true;
     
         #endregion
 
