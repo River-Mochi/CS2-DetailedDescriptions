@@ -10,15 +10,23 @@
 	<LongDescription>
 # Detailed Descriptions
 
-This mod adds useful details to asset descriptions.
+This mod adds useful details to asset descriptions:
 		
-## Zone Lot Size Display
+### Zone Lot Size Display
 
 Displays available lot sizes in the zones description, supports all languages.
-
 Some zones don't have lots in specific sizes and this feature lets you know in advance.
 		
-#### Credit
+### Building Lot Size Display
+Displays the lot size of ploppable buildings (in Tiles and m/ft)
+		
+### Workplace Amount Display
+Displays the amount of workplaces
+		
+### Speed Limit Display
+Displays the speed limit of roads (in kph/mph)
+		
+### Credit
 Thanks to StarQ for assisting with the implementation.
 	</LongDescription>
 	<!--Thumbnail-->
@@ -32,7 +40,7 @@ Thanks to StarQ for assisting with the implementation.
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/detailed-descriptions.1732226/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.0.1" />
+	<ModVersion Value="1.1.0" />
 	<!--Recommended version of the base game to use the mod-->
 	<GameVersion Value="1.2.*" />
 	<!--Dependency for the mod, can be set multiple times-->
@@ -42,8 +50,9 @@ Thanks to StarQ for assisting with the implementation.
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-- Fix incompatibility with Extra Mods
-- Change Assembly name
+- Add Workplaces amount info
+- Add Speed Limit Info
+- Add Building Lot Size Info for ploppable Buildings
 	</ChangeLog>
 	<!--External link, can be set multiple times. supported types are "discord", "github", "youtube", "twitch", "x", "paypal", "patreon", "buymeacoffee", "kofi", "crowdin", "gitlab", "gofundme"-->
 	<ExternalLink Type="github" Url="https://github.com/Mimonsi/CS2-DetailedDescriptions" />

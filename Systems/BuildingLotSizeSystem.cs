@@ -1,12 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Colossal.Entities;
-using Colossal.Localization;
 using DetailedDescriptions.Helpers;
-using Game;
 using Game.Prefabs;
-using Game.SceneFlow;
-using Game.Settings;
 using Unity.Collections;
 using Unity.Entities;
 
@@ -15,7 +10,6 @@ namespace DetailedDescriptions.Systems
     public partial class BuildingLotSizeSystem : AssetDescriptionDisplaySystem
     {
         private EntityQuery _buildingsQuery;
-        private static readonly Dictionary<string, (int, int)> BuildingLots = new();
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -24,7 +18,7 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<BuildingData>() }
             });
 
-            var buildings = _buildingsQuery.ToEntityArray(Allocator.Temp);
+            /*var buildings = _buildingsQuery.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in buildings)
             {
                 if (EntityManager.TryGetComponent(entity, out BuildingData buildingData))
@@ -32,7 +26,7 @@ namespace DetailedDescriptions.Systems
                     string prefabName = PrefabSystem.GetPrefabName(entity);
                     BuildingLots.Add(prefabName, (buildingData.m_LotSize.x, buildingData.m_LotSize.y));
                 }
-            }
+            }*/
 
             AddTextToAllDescriptions();
             Mod.log.Info("BuildingLotSizeSystem initialized");
@@ -41,16 +35,27 @@ namespace DetailedDescriptions.Systems
         protected override void AddTextToAllDescriptions()
         {
             if (!Setting.Instance.ShowBuildingLotSizes) return;
-            foreach (var item in BuildingLots)
+            var buildings = _buildingsQuery.ToEntityArray(Allocator.Temp);
+            foreach (Entity entity in buildings)
             {
-                int width = item.Value.Item1;
-                int depth = item.Value.Item2;
-                var lotText = $"Lot Size: {width}x{depth}";
-                if (Setting.Instance.ShowLotSizeUnits)
+                if (EntityManager.TryGetComponent(entity, out BuildingData buildingData))
                 {
-                    lotText += $" ({UnitHelper.FormatLength(width)} x {UnitHelper.FormatLength(depth)})";
+                    string prefabName = PrefabSystem.GetPrefabName(entity);
+                    
+                    int width = buildingData.m_LotSize.x;
+                    int depth = buildingData.m_LotSize.y;
+                    var lotText = $"Lot Size: {width}x{depth}";
+                    if (width == 0 || depth == 0)
+                    {
+                        Mod.log.Warn($"Building {prefabName} has Lot Size {width}x{depth}, but one of the dimensions is 0. This should not be possible.");
+                        continue;
+                    }
+                    if (Setting.Instance.ShowLotSizeUnits)
+                    {
+                        lotText += $" ({UnitHelper.FormatLength(width)} x {UnitHelper.FormatLength(depth)})";
+                    }
+                    AddTextToDescription(prefabName, lotText);
                 }
-                AddTextToDescription(item.Key, lotText);
             }
         } 
     }

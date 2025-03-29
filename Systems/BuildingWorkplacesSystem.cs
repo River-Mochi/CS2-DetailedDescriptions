@@ -18,18 +18,6 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<WorkplaceData>() }
             });
 
-            var buildings = _workplacesQuery.ToEntityArray(Allocator.Temp);
-            foreach (Entity entity in buildings)
-            {
-                if (EntityManager.TryGetComponent(entity, out WorkplaceData workplaceData))
-                {
-                    string prefabName = PrefabSystem.GetPrefabName(entity);
-                    BuildingLots.Add(prefabName, workplaceData);
-                }
-            }
-            
-            
-
             AddTextToAllDescriptions();
             Mod.log.Info("BuildingLotSizeSystem initialized");
         }
@@ -42,6 +30,17 @@ namespace DetailedDescriptions.Systems
         protected override void AddTextToAllDescriptions()
         {
             if (!Setting.Instance.ShowBuildingWorkplaces) return;
+            
+            var buildings = _workplacesQuery.ToEntityArray(Allocator.Temp);
+            foreach (Entity entity in buildings)
+            {
+                if (EntityManager.TryGetComponent(entity, out WorkplaceData workplaceData))
+                {
+                    string prefabName = PrefabSystem.GetPrefabName(entity);
+                    BuildingLots.Add(prefabName, workplaceData);
+                }
+            }
+            
             foreach (var item in BuildingLots)
             {
                 var workplaceData = item.Value;

@@ -18,7 +18,7 @@ namespace DetailedDescriptions
         {
         }
 
-        #region GeneralSettings
+        #region General Settings
         [SettingsUISection(kMainSection, kSettingsGroup)]
         public bool ShowLotSizeUnits { get; set; } = true;
 
@@ -43,7 +43,7 @@ namespace DetailedDescriptions
 
         #endregion
     
-        #region DescriptionTypes
+        #region Description Types
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowBuildingLotSizes { get; set; } = true;
         [SettingsUISection(kMainSection, kDescriptionsGroup)]

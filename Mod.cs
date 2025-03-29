@@ -5,7 +5,6 @@ using Colossal.Logging;
 using DetailedDescriptions.Helpers;
 using Game;
 using Game.Modding;
-using Game.Prefabs;
 using Game.SceneFlow;
 
 namespace DetailedDescriptions
@@ -48,7 +47,6 @@ namespace DetailedDescriptions
 
         public static void ApplySettingsChanges()
         {
-            
             OnSettingsChanged?.Invoke();
         }
 

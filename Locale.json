@@ -7,6 +7,8 @@
     "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowLotSizeUnits]": "Show meter or feet additionally to the unit lot size",
     "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ApplyChanges]": "Apply Changes",
     "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ApplyChanges]": "Apply changes and reload descriptions",
+    "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ReloadActiveLocale]": "Reload Localization",
+    "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ReloadActiveLocale]": "Reload the active localization dictionary. Sometimes helps when info is missing",
     "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Show Building Lot Sizes",
     "Options.OPTION_DESCRIPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowBuildingLotSizes]": "Shows Lot Sizes for Buildings",
     "Options.OPTION[DetailedDescriptions.DetailedDescriptions.Mod.Setting.ShowZoneLotSizes]": "Show Zone Lot Sizes",

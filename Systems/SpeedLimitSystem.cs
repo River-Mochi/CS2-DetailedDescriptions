@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Colossal.Entities;
 using DetailedDescriptions.Helpers;
+using Game.Common;
 using Game.Prefabs;
 using Unity.Collections;
 using Unity.Entities;
@@ -19,18 +20,6 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<RoadData>() }
             });
 
-            var buildings = _roadsQuery.ToEntityArray(Allocator.Temp);
-            foreach (Entity entity in buildings)
-            {
-                if (EntityManager.TryGetComponent(entity, out RoadData roadData))
-                {
-                    string prefabName = PrefabSystem.GetPrefabName(entity);
-                    SpeedLimits.Add(prefabName, roadData);
-                }
-            }
-            
-            
-
             AddTextToAllDescriptions();
             Mod.log.Info("BuildingLotSizeSystem initialized");
         }
@@ -43,6 +32,22 @@ namespace DetailedDescriptions.Systems
         protected override void AddTextToAllDescriptions()
         {
             if (!Setting.Instance.ShowRoadSpeedLimit) return;
+            
+            var roads = _roadsQuery.ToEntityArray(Allocator.Temp);
+            foreach (Entity entity in roads)
+            {
+                if (EntityManager.TryGetComponent(entity, out RoadData roadData))
+                {
+                    // Half speed limit
+                    roadData.m_SpeedLimit /= 2;
+                    //EntityManager.SetComponentData(entity, roadData);
+                    //EntityManager.AddComponent<BatchesUpdated>(entity);
+                    
+                    string prefabName = PrefabSystem.GetPrefabName(entity);
+                    SpeedLimits.Add(prefabName, roadData);
+                }
+            }
+            
             foreach (var item in SpeedLimits)
             {
                 var speedText = $"Speed Limit: {UnitHelper.FormatSpeedLimit(item.Value.m_SpeedLimit)}";

@@ -24,6 +24,14 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<SpawnableBuildingData>() }
             });
 
+            AddTextToAllDescriptions();
+            Mod.log.Info("ZoneLotSizeSystem initialized");
+        }
+        
+        protected override void AddTextToAllDescriptions()
+        {
+            if (!Setting.Instance.ShowZoneLotSizes) return;
+            
             var allSpawnableBuildings = _spawnableBuildings.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in allSpawnableBuildings)
             {
@@ -39,14 +47,7 @@ namespace DetailedDescriptions.Systems
                     ZoneLots[zoneName].Add((buildingPrefab.m_LotWidth, buildingPrefab.m_LotDepth));
                 }
             }
-
-            AddTextToAllDescriptions();
-            Mod.log.Info("ZoneLotSizeSystem initialized");
-        }
-        
-        protected override void AddTextToAllDescriptions()
-        {
-            if (!Setting.Instance.ShowZoneLotSizes) return;
+            
             foreach (var item in ZoneLots)
             {
                 string zoneName = item.Key.Replace("ZonePrefab:","");
