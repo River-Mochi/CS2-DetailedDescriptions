@@ -24,7 +24,7 @@ namespace DetailedDescriptions.Systems
         
         }
 
-        public void AddTextToDescription(string prefabName, string text)
+        protected void AddTextToDescription(string prefabName, string text)
         {
             if (LocalizationManager.activeDictionary.TryGetValue($"Assets.DESCRIPTION[{prefabName}]", out var entry))
             {

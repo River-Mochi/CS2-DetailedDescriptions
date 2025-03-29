@@ -9,7 +9,6 @@ namespace DetailedDescriptions.Systems
     public partial class BuildingWorkplacesSystem : AssetDescriptionDisplaySystem
     {
         private EntityQuery _workplacesQuery;
-        private static readonly Dictionary<string, WorkplaceData> BuildingLots = new();
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -37,16 +36,10 @@ namespace DetailedDescriptions.Systems
                 if (EntityManager.TryGetComponent(entity, out WorkplaceData workplaceData))
                 {
                     string prefabName = PrefabSystem.GetPrefabName(entity);
-                    BuildingLots.Add(prefabName, workplaceData);
+                    var workplaceText = $"Workplaces: {workplaceData.m_MaxWorkers}";
+                    if (workplaceData.m_MaxWorkers > 0)
+                        AddTextToDescription(prefabName, workplaceText);
                 }
-            }
-            
-            foreach (var item in BuildingLots)
-            {
-                var workplaceData = item.Value;
-                var workplaceText = $"Workplaces: {workplaceData.m_MaxWorkers}";
-                if (workplaceData.m_MaxWorkers > 0)
-                    AddTextToDescription(item.Key, workplaceText);
             }
         } 
     }

@@ -17,6 +17,7 @@ namespace DetailedDescriptions
         public Setting(IMod mod) : base(mod)
         {
         }
+        // TODO: Add settings to use Metric, US Customary, or default units
 
         #region General Settings
         [SettingsUISection(kMainSection, kSettingsGroup)]

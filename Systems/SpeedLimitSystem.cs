@@ -11,7 +11,6 @@ namespace DetailedDescriptions.Systems
     public partial class SpeedLimitSystem : AssetDescriptionDisplaySystem
     {
         private EntityQuery _roadsQuery;
-        private static readonly Dictionary<string, RoadData> SpeedLimits = new();
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -44,14 +43,11 @@ namespace DetailedDescriptions.Systems
                     //EntityManager.AddComponent<BatchesUpdated>(entity);
                     
                     string prefabName = PrefabSystem.GetPrefabName(entity);
-                    SpeedLimits.Add(prefabName, roadData);
+                    if (roadData.m_SpeedLimit == 0)
+                        continue;
+                    var speedText = $"Speed Limit: {UnitHelper.FormatSpeedLimit(roadData.m_SpeedLimit)}";
+                    AddTextToDescription(prefabName, speedText);
                 }
-            }
-            
-            foreach (var item in SpeedLimits)
-            {
-                var speedText = $"Speed Limit: {UnitHelper.FormatSpeedLimit(item.Value.m_SpeedLimit)}";
-                AddTextToDescription(item.Key, speedText);
             }
         } 
     }
