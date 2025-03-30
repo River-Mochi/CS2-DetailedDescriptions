@@ -21,7 +21,7 @@ namespace DetailedDescriptions.Systems
             });
 
             GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
-            Mod.log.Info("BuildingLotSizeSystem initialized");
+            Mod.log.Info("SpeedLimitSystem initialized");
         }
 
         protected override void OnUpdate()

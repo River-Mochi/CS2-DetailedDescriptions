@@ -19,7 +19,7 @@ namespace DetailedDescriptions.Systems
             });
 
             GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
-            Mod.log.Info("BuildingLotSizeSystem initialized");
+            Mod.log.Info("BuildingWorkplacesSystem initialized");
         }
 
         protected override void OnUpdate()
