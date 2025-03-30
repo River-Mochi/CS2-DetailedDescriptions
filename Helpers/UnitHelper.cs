@@ -10,25 +10,19 @@ namespace DetailedDescriptions.Helpers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string FormatLength(int value)
+        public static string FormatBuildingLotSize(int value)
         {
-            if (IsMetric())
-            {
+            if (Setting.Instance.BuildingLotSizeUnit == LengthUnitSetting.Meters || (Setting.Instance.BuildingLotSizeUnit == LengthUnitSetting.Default && IsMetric()))
                 return $"{8*value}m";
-            }
-
             var feet = MetersToFeet(8*value);
             // 2 decimal places
-            string roundedFeet = $"{feet:0.00}ft";
-            return roundedFeet;
+            return $"{feet:0.00}ft";
         }
 
         public static string FormatSpeedLimit(float value)
         {
-            if (IsMetric())
-            {
+            if (Setting.Instance.RoadSpeedLimitUnit == SpeedUnitSetting.Kph || (Setting.Instance.RoadSpeedLimitUnit == SpeedUnitSetting.Default && IsMetric()))
                 return $"{MsToKph(value)} km/h";
-            }
             return $"{MsToMph(value)} mph";
         }
         

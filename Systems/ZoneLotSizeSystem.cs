@@ -24,7 +24,7 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<SpawnableBuildingData>() }
             });
 
-            AddTextToAllDescriptions();
+            GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
             Mod.log.Info("ZoneLotSizeSystem initialized");
         }
         

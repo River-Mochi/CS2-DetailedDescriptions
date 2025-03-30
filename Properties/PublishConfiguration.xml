@@ -50,7 +50,8 @@ Thanks to StarQ for assisting with the implementation.
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-- HOTFIX: Fix Error on startup with 1.1.0
+- Fix long loading times due to log spam
+- Add Settings to choose unit for lot size and speed limit
 	</ChangeLog>
 	<!--External link, can be set multiple times. supported types are "discord", "github", "youtube", "twitch", "x", "paypal", "patreon", "buymeacoffee", "kofi", "crowdin", "gitlab", "gofundme"-->
 	<ExternalLink Type="github" Url="https://github.com/Mimonsi/CS2-DetailedDescriptions" />

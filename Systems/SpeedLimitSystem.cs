@@ -3,6 +3,7 @@ using Colossal.Entities;
 using DetailedDescriptions.Helpers;
 using Game.Common;
 using Game.Prefabs;
+using Game.SceneFlow;
 using Unity.Collections;
 using Unity.Entities;
 
@@ -19,7 +20,7 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<RoadData>() }
             });
 
-            AddTextToAllDescriptions();
+            GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
             Mod.log.Info("BuildingLotSizeSystem initialized");
         }
 

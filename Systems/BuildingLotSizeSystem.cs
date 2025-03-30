@@ -2,6 +2,7 @@
 using Colossal.Entities;
 using DetailedDescriptions.Helpers;
 using Game.Prefabs;
+using Game.SceneFlow;
 using Unity.Collections;
 using Unity.Entities;
 
@@ -28,7 +29,7 @@ namespace DetailedDescriptions.Systems
                 }
             }*/
 
-            AddTextToAllDescriptions();
+            GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
             Mod.log.Info("BuildingLotSizeSystem initialized");
         }
 
@@ -47,13 +48,10 @@ namespace DetailedDescriptions.Systems
                     var lotText = $"Lot Size: {width}x{depth}";
                     if (width == 0 || depth == 0)
                     {
-                        Mod.log.Warn($"Building {prefabName} has Lot Size {width}x{depth}, but one of the dimensions is 0. This should not be possible.");
+                        //Mod.log.Warn($"Building {prefabName} has Lot Size {width}x{depth}, but one of the dimensions is 0. This should not be possible.");
                         continue;
                     }
-                    if (Setting.Instance.ShowLotSizeUnits)
-                    {
-                        lotText += $" ({UnitHelper.FormatLength(width)} x {UnitHelper.FormatLength(depth)})";
-                    }
+                    lotText += $" ({UnitHelper.FormatBuildingLotSize(width)} x {UnitHelper.FormatBuildingLotSize(depth)})";
                     AddTextToDescription(prefabName, lotText);
                 }
             }

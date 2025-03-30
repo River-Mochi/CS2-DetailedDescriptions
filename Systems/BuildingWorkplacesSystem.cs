@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Colossal.Entities;
 using Game.Prefabs;
+using Game.SceneFlow;
 using Unity.Collections;
 using Unity.Entities;
 
@@ -17,7 +18,7 @@ namespace DetailedDescriptions.Systems
                 All = new [] { ComponentType.ReadWrite<WorkplaceData>() }
             });
 
-            AddTextToAllDescriptions();
+            GameManager.instance.RegisterUpdater(AddTextToAllDescriptions);
             Mod.log.Info("BuildingLotSizeSystem initialized");
         }
 

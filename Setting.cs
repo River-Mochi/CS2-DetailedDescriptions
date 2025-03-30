@@ -4,6 +4,21 @@ using Game.Settings;
 
 namespace DetailedDescriptions
 {
+    
+    public enum LengthUnitSetting
+    {
+        Default,
+        Meters,
+        Feet
+    }
+    
+    public enum SpeedUnitSetting
+    {
+        Default,
+        Kph,
+        Mph
+    }
+    
     //[FileLocation($"ModsSettings/{nameof(DetailedDescriptions)}/{nameof(DetailedDescriptions)}")]
     [FileLocation("ModsSettings/DetailedDescriptions/DetailedDescriptions")]
     [SettingsUIGroupOrder(kSettingsGroup, kDescriptionsGroup)]
@@ -20,8 +35,6 @@ namespace DetailedDescriptions
         // TODO: Add settings to use Metric, US Customary, or default units
 
         #region General Settings
-        [SettingsUISection(kMainSection, kSettingsGroup)]
-        public bool ShowLotSizeUnits { get; set; } = true;
 
         [SettingsUISection(kMainSection, kSettingsGroup)]
         public bool ApplyChanges
@@ -47,12 +60,26 @@ namespace DetailedDescriptions
         #region Description Types
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowBuildingLotSizes { get; set; } = true;
+        
+        [SettingsUIHideByCondition(typeof(Setting), nameof(ShowBuildingLotSizes), true)]
+        [SettingsUISection(kMainSection, kDescriptionsGroup)]
+        public LengthUnitSetting BuildingLotSizeUnit { get; set; } = LengthUnitSetting.Default;
+        
+        
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowZoneLotSizes { get; set; } = true;
+        
+        
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowBuildingWorkplaces { get; set; } = true;
+        
+        
         [SettingsUISection(kMainSection, kDescriptionsGroup)]
         public bool ShowRoadSpeedLimit { get; set; } = true;
+        
+        [SettingsUISection(kMainSection, kDescriptionsGroup)]
+        [SettingsUIHideByCondition(typeof(Setting), nameof(ShowRoadSpeedLimit), true)]
+        public SpeedUnitSetting RoadSpeedLimitUnit { get; set; } = SpeedUnitSetting.Default;
     
         #endregion
 
