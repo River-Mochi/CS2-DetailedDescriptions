@@ -11,7 +11,7 @@ namespace DetailedDescriptions.Systems
 {
     public partial class ZoneLotSizeSystem : AssetDescriptionDisplaySystem
     {
-        private PrefabSystem _prefabSystem;
+        private PrefabSystem _prefabSystem = null!;
         private EntityQuery _spawnableBuildings;
         private static readonly Dictionary<string, List<(int, int)>> ZoneLots = new();
         protected override void OnCreate()
@@ -30,22 +30,38 @@ namespace DetailedDescriptions.Systems
         
         protected override void AddTextToAllDescriptions()
         {
-            if (!Setting.Instance.ShowZoneLotSizes) return;
-            
-            var allSpawnableBuildings = _spawnableBuildings.ToEntityArray(Allocator.Temp);
+            if (Setting.Instance == null || !Setting.Instance.ShowZoneLotSizes) return;
+            if (_prefabSystem == null) return;
+
+            ZoneLots.Clear();   // avoid carry-over between runs or language switches
+
+            using var allSpawnableBuildings = _spawnableBuildings.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in allSpawnableBuildings)
             {
-                _prefabSystem.TryGetPrefab(entity, out PrefabBase bldgPrefab);
-                BuildingPrefab buildingPrefab = (BuildingPrefab)bldgPrefab;
-                if (bldgPrefab.TryGet(out SpawnableBuilding sbd) && buildingPrefab is not null)
-                {
-                    string zoneName = sbd.m_ZoneType?.GetPrefabID().ToString() ?? "";
-                    if (!ZoneLots.ContainsKey(zoneName))
-                    {
-                        ZoneLots[zoneName] = new List<(int, int)>();
-                    }
+                // Guard: prefab may not resolve in some saves, skip those
+                if (!_prefabSystem.TryGetPrefab(entity, out PrefabBase bldgPrefab) || bldgPrefab == null)
+                    continue;
+
+                // Guard: only BuildingPrefab has lot size, skip others
+                if (!(bldgPrefab is BuildingPrefab))
+                    continue;
+                var buildingPrefab = (BuildingPrefab)bldgPrefab;
+
+                // Guard: SpawnableBuilding required to get m_ZoneType, skip others
+                if (!bldgPrefab.TryGet(out SpawnableBuilding sbd))
+                    continue;
+
+                string zoneName = sbd.m_ZoneType?.GetPrefabID().ToString() ?? "";
+                if (string.IsNullOrEmpty(zoneName))
+                    continue;
+
+                if (!ZoneLots.ContainsKey(zoneName))
+                    ZoneLots[zoneName] = new List<(int, int)>();
+
+                // Optional: skip invalid sizes
+                if (buildingPrefab.m_LotWidth > 0 && buildingPrefab.m_LotDepth > 0)
                     ZoneLots[zoneName].Add((buildingPrefab.m_LotWidth, buildingPrefab.m_LotDepth));
-                }
+                
             }
             
             foreach (var item in ZoneLots)

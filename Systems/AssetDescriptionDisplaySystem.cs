@@ -8,8 +8,8 @@ namespace DetailedDescriptions.Systems
 {
     public partial class AssetDescriptionDisplaySystem : GameSystemBase
     {
-        protected PrefabSystem PrefabSystem;
-        protected LocalizationManager LocalizationManager;
+        protected PrefabSystem PrefabSystem = null!;
+        protected LocalizationManager LocalizationManager = null!;
         protected override void OnCreate()
         {
             base.OnCreate();
